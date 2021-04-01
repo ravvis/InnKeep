@@ -28,6 +28,7 @@ export default {
   },
   created() {
     this.$store.dispatch("fetch_institution_types");
+    console.log('env: ', process.env);
   },
   methods: {
     check_authenticated() {

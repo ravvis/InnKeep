@@ -91,6 +91,7 @@ import firebase from "firebase";
 import { GET_RANDOM_ID } from "@/resources/getRandomId.js";
 import { mapGetters } from "vuex";
 const db = firebase.firestore();
+import axios from "axios";
 
 export default {
   name: "add-request",
@@ -134,7 +135,29 @@ export default {
           resource: this.resource,
           type: this.service
         })
-        .then(() => {
+        .then(async () => {
+          // await sendEmail({
+          //   to: this.email,
+          //   subject: "Request created successfully",
+          //   body_html: "Request created successfully"
+          // });
+          console.log(process.env.VUE_APP_SERVER_URL);
+          axios.post(
+            "send-notification",
+            {
+              to: "ravi16iiitg@gmail.com",
+              subject: "Request created successfully",
+              body_html: "Request created successfully",
+              data: {
+                url:
+                  window.location.origin + "/request/status/" + this.request_id,
+                create: true
+              }
+            },
+            {
+              baseURL: process.env.VUE_APP_SERVER_URL
+            }
+          );
           this.successMsg = "Request has been registered successfully!";
           console.log("Sucess!");
           this.loading = false;

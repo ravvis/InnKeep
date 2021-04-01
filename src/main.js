@@ -4,6 +4,8 @@ import App from "./app.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+import axios from "axios";
+axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 // firebase
 import "@/firebase";

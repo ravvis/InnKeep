@@ -48,6 +48,7 @@
 
 <script>
 import { requestsCollection } from "@/firebase";
+import axios from "axios";
 export default {
   props: {
     request: {
@@ -90,6 +91,21 @@ export default {
       }
       this.saving = false;
       this.$emit("close", { reload: true });
+      axios.post(
+        "send-notification",
+        {
+          to: "ravi16iiitg@gmail.com",
+          subject: "Request resolved successfully",
+          body_html: "Request resolved successfully",
+          data: {
+            url: window.location.origin + "/request/status/" + this.request_id,
+            create: false
+          }
+        },
+        {
+          baseURL: process.env.VUE_APP_SERVER_URL
+        }
+      );
     }
   }
 };
