@@ -1,17 +1,16 @@
 <template>
-  <v-container>
-    <v-layout justify-center>
-      <v-flex xs12>
-        <v-card class="elevation-12">
-          <v-toolbar color="primary">
-            <v-toolbar-title>Signup</v-toolbar-title>
-            <v-spacer />
-          </v-toolbar>
-          <v-container fill-height>
-            <v-layout class="verticalLine" align-center justify-center>
-              <v-flex xs8>
-                <v-form v-model="valid" lazy-validation>
-                  <v-text-field
+  <v-main>
+    <v-container style="margin-top:12%" md3 fluid>
+      <v-layout justify-end align-content-center>
+        <v-flex xs12 sm8 md3>
+          <v-card class="elevation-12">
+            <v-toolbar>
+              <v-toolbar-title>Signup</v-toolbar-title>
+              <v-spacer />
+            </v-toolbar>
+            <v-card-text>
+              <v-form>
+                <v-text-field
                     v-model="name"
                     prepend-icon="mdi-account"
                     name="name"
@@ -25,47 +24,60 @@
                     label="Company Name"
                     type="text"
                   />
-                  <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    prepend-icon="mdi-mail"
-                    name="email"
-                    label="Email"
-                    type="text"
-                  />
-                  <v-text-field
-                    v-model="password"
-                    :rules="[v => !!v || 'Password is required']"
-                    prepend-icon="mdi-lock"
-                    name="password"
-                    label="Password"
-                    type="password"
-                  />
-                </v-form>
-                <v-spacer />
-                <v-layout column>
-                  <v-btn
-                    :disabled="!valid"
-                    color="primary"
-                    class="test"
-                    @click="onSignUp"
-                    >Signup</v-btn
-                  >
-                  <p>
-                    Got an account? Login here
-                    <router-link :to="{ name: 'signin' }">Login</router-link>
-                  </p>
-                </v-layout>
-              </v-flex>
+                <v-text-field
+                  ref="username"
+                  v-model="email"
+                  :rules="[() => !!email || 'This field is required']"
+                  prepend-icon="mdi-account"
+                  label="Email"
+                  placeholder="Email"
+                  required
+                />
+                <v-text-field
+                  ref="password"
+                  v-model="password"
+                  :rules="[() => !!password || 'This field is required']"
+                  :append-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
+                  :type="showPassword ? 'text' : 'password'"
+                  prepend-icon="mdi-lock"
+                  label="Password"
+                  placeholder="*********"
+                  counter
+                  required
+                  @keydown.enter="login"
+                  @click:append="showPassword = !showPassword"
+                />
+              </v-form>
+            </v-card-text>
+           
+            <v-layout column align-center>
+              <div class="text-xs-center">
+                <v-btn
+                  :disabled="!email || !password"
+                  :loading="loading"
+                  color="success"
+                  width="40px"
+                  @click="onSignUp"
+                  data-testid="button-login"
+                  >Sign Up</v-btn
+                >
+              </div>
+              <v-spacer />
+              <v-divider class="mt-5" />
+              <p>
+               Got an account?
+                    <router-link :to="{ name: 'signin' }">Login here</router-link>
+              </p>
             </v-layout>
-          </v-container>
-        </v-card>
-      </v-flex>
-    </v-layout>
-  </v-container>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </v-main>
 </template>
 
-<script>
+
+ <script>
 import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
@@ -75,6 +87,8 @@ export default {
       company: "",
       email: "",
       password: "",
+      errorMessages: "Incorrect login info",
+      showPassword: false,
       emailRules: [
         v => !!v || "E-mail is required",
         v =>
@@ -86,13 +100,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("AuthStore", ["get_user", "loading"]),
-    user() {
-      return this.get_user;
-    },
-    loading() {
-      return this.loading;
-    }
+    ...mapGetters("AuthStore", ["get_user", "loading"])
   },
   mounted() {
     if (this.$auth.is_authenticated()) {
@@ -118,4 +126,5 @@ export default {
     }
   }
 };
-</script>
+
+ </script>
