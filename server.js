@@ -16,6 +16,9 @@ fs.readFile("request_update_mail.html", function(err, data) {
 });
 
 var express = require("express");
+var fallback = require("express-history-api-fallback");
+const root = `${__dirname}/dist`;
+
 // var path = require("path");
 var serveStatic = require("serve-static");
 var cors = require("cors");
@@ -41,7 +44,12 @@ const sendEmail = ({ to, subject, data }) => {
         from: process.env.NOTIFICATION_EMAIL,
         to: to,
         subject: subject,
-        html: data.create === true ? request_create.toString().replace("__url__", `<a href="${data.url}">${data.url}</a>`) : request_update.toString()
+        html:
+          data.create === true
+            ? request_create
+                .toString()
+                .replace("__url__", `<a href="${data.url}">${data.url}</a>`)
+            : request_update.toString()
       },
       (error, data) => {
         if (error) {
@@ -56,10 +64,16 @@ const sendEmail = ({ to, subject, data }) => {
 };
 
 const app = express();
+// app.use(history({
+//   verbose: true
+// }))
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-app.use(serveStatic(__dirname + "/dist"));
+// app.use(serveStatic(__dirname + "/dist"));
+app.use(express.static(root));
+app.use(fallback("index.html", { root }));
+
 app.post("/send-notification", async (req, res) => {
   // console.log('qwerty', req);
   let context = req.body;
