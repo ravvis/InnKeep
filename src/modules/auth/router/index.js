@@ -8,5 +8,10 @@ export const AuthRoutes = [
     name: "signup",
     path: "/register",
     component: () => import("@/modules/auth/components/signup")
+  },
+  {
+    name: "logout",
+    path: "logout",
+    component: () => import("@/modules/auth/components/logout")
   }
 ];

@@ -47,14 +47,19 @@ export default {
   },
 
   async logout() {
-    auth
-      .signOut()
-      .then(() => {
-        // clear userProfile and redirect to /login
-        store.commit("SET_USER", {});
-        router.push({ name: "signin" });
-      })
-      .catch(() => {});
+    return new Promise((resolve, reject) => {
+      auth
+        .signOut()
+        .then(() => {
+          // clear userProfile and redirect to /login
+          store.commit("SET_USER", {});
+          router.push({ name: "signin" });
+          resolve();
+        })
+        .catch(() => {
+          reject();
+        });
+    });
   },
 
   is_authenticated() {

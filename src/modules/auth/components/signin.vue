@@ -1,8 +1,8 @@
 <template>
   <v-main>
     <v-container style="margin-top:12%" md3 fluid>
-      <v-layout justify-end align-content-center>
-        <v-flex xs12 sm8 md3>
+      <v-layout justify-center align-content-center>
+        <v-flex xs12 sm12 md6>
           <v-card class="elevation-12">
             <v-toolbar color="secondary">
               <v-toolbar-title>Signin</v-toolbar-title>
