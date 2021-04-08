@@ -29,6 +29,16 @@
                 color="orange"
               ></v-switch>
             </v-card-text>
+            <v-card-text>
+              <v-card-subtitle>
+                Assign To
+              </v-card-subtitle>
+              <v-text-field
+                placeholder="Enter here"
+                style="margin-left:16px;"
+                v-model="local_request.assign_to"
+              ></v-text-field>
+            </v-card-text>
             <v-card-actions class="justify-end">
               <v-btn
                 text
@@ -58,7 +68,8 @@ export default {
   data() {
     return {
       local_request: {
-        isOpen: false
+        isOpen: false,
+        assign_to: ""
       },
       saving: false
     };
@@ -67,6 +78,9 @@ export default {
     if (this.request) {
       this.local_request.isOpen = JSON.parse(
         JSON.stringify(this.request.isOpen)
+      );
+      this.local_request.assign_to = JSON.parse(
+        JSON.stringify(this.request.assign_to)
       );
     }
   },
@@ -86,26 +100,31 @@ export default {
       if (docs && docs.length) {
         console.log({ docs });
         await docs[0].ref.update({
-          isOpen: this.local_request.isOpen
+          isOpen: this.local_request.isOpen,
+          assign_to: this.local_request.assign_to
         });
       }
       this.saving = false;
       this.$emit("close", { reload: true });
-      axios.post(
-        "send-notification",
-        {
-          to: "ravi16iiitg@gmail.com",
-          subject: "Request resolved successfully",
-          body_html: "Request resolved successfully",
-          data: {
-            url: window.location.origin + "/request/status/" + this.request_id,
-            create: false
+      if (!this.local_request.isOpen) {
+        // Triggering mail is the request is closed
+        axios.post(
+          "send-notification",
+          {
+            to: "ravi16iiitg@gmail.com",
+            subject: "Request resolved successfully",
+            body_html: "Request resolved successfully",
+            data: {
+              url:
+                window.location.origin + "/request/status/" + this.request_id,
+              create: false
+            }
+          },
+          {
+            baseURL: process.env.VUE_APP_SERVER_URL
           }
-        },
-        {
-          baseURL: process.env.VUE_APP_SERVER_URL
-        }
-      );
+        );
+      }
     }
   }
 };

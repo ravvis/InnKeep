@@ -145,7 +145,7 @@ export default {
           axios.post(
             "send-notification",
             {
-              to: "ravi16iiitg@gmail.com",
+              to: this.email,
               subject: "Request created successfully",
               body_html: "Request created successfully",
               data: {

@@ -29,7 +29,7 @@
         >
           <v-container>
             <v-row>
-              <v-col>
+              <v-col cols="5">
                 <v-card-title>
                   {{ request.type }}
 
@@ -54,11 +54,18 @@
                     {{ request.resource }}
                   </v-chip>
                 </v-card-text>
+                <v-chip class="ma-2" color="primary" label>
+                  <v-icon left>
+                    mdi-account-circle-outline
+                  </v-icon>
+                  Assignee: {{ request.assign_to || "NA" }}
+                </v-chip>
+                <!-- <v-divider vertical></v-divider> -->
               </v-col>
-              <v-col>
+              <v-col cols="1">
                 <v-divider vertical></v-divider>
               </v-col>
-              <v-col>
+              <v-col cols="5">
                 <v-chip class="ma-2" color="primary" label>
                   <v-icon left>
                     mdi-account-circle-outline

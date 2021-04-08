@@ -41,6 +41,12 @@
                         {{ get_request.resource }}
                       </v-chip>
                     </v-card-text>
+                    <v-chip class="ma-2" color="primary" label >
+                      <v-icon left>
+                        mdi-account-circle-outline
+                      </v-icon>
+                      Assignee: {{ get_request.assign_to || "NA" }}
+                    </v-chip>
                   </v-col>
                   <v-col>
                     <v-divider vertical></v-divider>
