@@ -5,7 +5,8 @@
   "author": "Yash&Babu",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --watch",
+    "build": "vue-cli-service build",
+    "build-dev": "vue-cli-service build --watch",
     "watch": "vue-cli-service serve --watch",
     "lint": "vue-cli-service lint",
     "start": "node server.js",
