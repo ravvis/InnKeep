@@ -12,7 +12,8 @@
             <v-row>
               <v-col>
                 <v-toolbar-title style="font-size:32px;">
-                  Request <span style="pacity:0.8;">#{{ get_request.request_id }}</span>
+                  Request
+                  <span style="pacity:0.8;">#{{ get_request.request_id }}</span>
                 </v-toolbar-title>
 
                 <v-row>
@@ -41,7 +42,7 @@
                         {{ get_request.resource }}
                       </v-chip>
                     </v-card-text>
-                    <v-chip class="ma-2" color="primary" label >
+                    <v-chip class="ma-2" color="primary" label>
                       <v-icon left>
                         mdi-account-circle-outline
                       </v-icon>

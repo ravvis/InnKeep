@@ -15,7 +15,10 @@
         <v-row>
           <v-col>
             <v-chip class="ma-2" color="blue" small>
-              Total Available Resources: {{ get_resources.filter(resource => resource.is_available).length }}
+              Total Available Resources:
+              {{
+                get_resources.filter(resource => resource.is_available).length
+              }}
             </v-chip>
           </v-col>
         </v-row>

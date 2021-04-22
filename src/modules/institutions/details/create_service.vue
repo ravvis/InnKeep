@@ -52,7 +52,7 @@ export default {
       saving: false,
       form: {
         title: null,
-        desc: null,
+        desc: null
       }
     };
   },
@@ -61,8 +61,8 @@ export default {
       return !this.form.title;
     }
   },
-  mounted(){
-    console.log("here...........")
+  mounted() {
+    console.log("here...........");
   },
   methods: {
     save() {
@@ -72,7 +72,7 @@ export default {
         .set({
           title: this.form.title,
           desc: this.form.desc,
-          institution_id: this.$store.getters['Institutions/get_institute_id'],
+          institution_id: this.$store.getters["Institutions/get_institute_id"],
           service_id: GET_RANDOM_ID()
         })
         .then(() => {

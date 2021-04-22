@@ -20,7 +20,7 @@ var fallback = require("express-history-api-fallback");
 const root = `${__dirname}/dist`;
 
 // var path = require("path");
-var serveStatic = require("serve-static");
+// var serveStatic = require("serve-static");
 var cors = require("cors");
 
 const nodemailer = require("nodemailer");

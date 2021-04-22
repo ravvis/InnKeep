@@ -57,8 +57,8 @@
                 color="primary"
                 @click="submit"
                 data-testid="button-login"
-                >Submit</v-btn
-              >
+                >Submit
+              </v-btn>
               <v-spacer />
               <v-divider class="mt-5" />
             </v-layout>
@@ -71,10 +71,10 @@
                 :to="{
                   name: 'request-status',
                   params: {
-                    id: request_id
-                  }
+                    id: request_id,
+                  },
                 }"
-                style="color:yellow;"
+                style="color: yellow"
               >
                 {{ "Request status #" + request_id }}
               </router-link>
@@ -87,10 +87,9 @@
 </template>
 
 <script>
-import firebase from "firebase";
 import { GET_RANDOM_ID } from "@/resources/getRandomId.js";
 import { mapGetters } from "vuex";
-const db = firebase.firestore();
+import { requestsCollection } from "@/firebase";
 import axios from "axios";
 
 export default {
@@ -107,23 +106,24 @@ export default {
       loading: false,
       successMsg: "",
       resource: null,
-      service: null
+      service: null,
     };
   },
   mounted() {
     this.$store.dispatch("Institutions/fetch_resources_of_institute", {
-      institution_id: this.$route.params.id
+      institution_id: this.$route.params.id,
     });
     this.$store.dispatch("Institutions/fetch_services_of_institute", {
-      institution_id: this.$route.params.id
+      institution_id: this.$route.params.id,
     });
     this.request_id = GET_RANDOM_ID();
   },
   methods: {
     submit() {
-      console.log(this.type);
+      // console.log(this.type);
       this.loading = true;
-      db.collection("requests")
+      console.log({ p: requestsCollection.add() });
+      requestsCollection
         .add({
           name: this.name,
           email: this.email,
@@ -133,7 +133,7 @@ export default {
           institution_id: this.$route.params.id,
           request_id: this.request_id,
           resource: this.resource,
-          type: this.service
+          type: this.service,
         })
         .then(async () => {
           // await sendEmail({
@@ -151,30 +151,30 @@ export default {
               data: {
                 url:
                   window.location.origin + "/request/status/" + this.request_id,
-                create: true
-              }
+                create: true,
+              },
             },
             {
-              baseURL: process.env.VUE_APP_SERVER_URL
+              baseURL: process.env.VUE_APP_SERVER_URL,
             }
           );
           this.successMsg = "Request has been registered successfully!";
           console.log("Sucess!");
           this.loading = false;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Error: ", error);
         });
-    }
+    },
   },
   computed: {
     ...mapGetters("Institutions", ["get_resources", "get_services"]),
     resources() {
-      return this.get_resources.map(resource => resource.title);
+      return this.get_resources.map((resource) => resource.title);
     },
     services() {
-      return this.get_services.map(service => service.title);
-    }
-  }
+      return this.get_services.map((service) => service.title);
+    },
+  },
 };
 </script>

@@ -7,12 +7,12 @@
 <script>
 import Auth from "../auth";
 export default {
-  async mounted(){
+  async mounted() {
     await Auth.logout();
     // window.location.reload();
     // this.$router.push({
     //   name: "signin"
     // });
   }
-}
+};
 </script>

@@ -5,20 +5,20 @@ import {
   resourcesCollection,
   servicesCollection
 } from "@/firebase";
-
+const initialState = () => ({
+  institute: null,
+  request: null,
+  fetching_institute: false,
+  fetching_requests: false,
+  fetching_request: false,
+  fetching_resources: false,
+  requests: [],
+  resources: [],
+  services: []
+});
 const Institutions = {
   namespaced: true,
-  state: {
-    institute: null,
-    request: null,
-    fetching_institute: false,
-    fetching_requests: false,
-    fetching_request: false,
-    fetching_resources: false,
-    requests: [],
-    resources: [],
-    services: []
-  },
+  state: initialState(),
   getters: {
     get_institute(state) {
       return state.institute;
@@ -39,25 +39,31 @@ const Institutions = {
       return state.fetching_requests;
     },
     get_requests(state) {
-      console.log({ state });
       return state.requests ? state.requests.slice().reverse() : [];
     },
     fetching_resources(state) {
       return state.fetching_resources;
     },
     get_resources(state) {
-      console.log({ state });
+      console.log({
+        state
+      });
       return state.resources ? state.resources.slice().reverse() : [];
     },
     fetching_services(state) {
       return state.fetching_services;
     },
     get_services(state) {
-      console.log({ state });
+      console.log({
+        state
+      });
       return state.services ? state.services.slice().reverse() : [];
     }
   },
   mutations: {
+    RESET_STATE(state) {
+      Object.assign(state, initialState());
+    },
     SET_INSTITUTE(state, payload) {
       Vue.set(state, "institute", payload);
     },
@@ -105,7 +111,9 @@ const Institutions = {
     }
   },
   actions: {
-    async fetch_institute({ commit }, institution_id) {
+    async fetch_institute({
+      commit
+    }, institution_id) {
       if (institution_id) {
         commit("SET_FETCHING_INSTITUTE", true);
         let institutions = await institutionsCollection
@@ -130,7 +138,9 @@ const Institutions = {
         commit("RESET_INSTITUTE");
       }
     },
-    async fetch_request({ commit }, request_id) {
+    async fetch_request({
+      commit
+    }, request_id) {
       if (request_id) {
         commit("SET_FETCHING_REQUEST", true);
         let requests = await requestsCollection
@@ -155,9 +165,13 @@ const Institutions = {
         commit("RESET_REQUEST");
       }
     },
-    async fetch_requests_of_institute(
-      { commit, state },
-      config = { loading: true }
+    async fetch_requests_of_institute({
+        commit,
+        state
+      },
+      config = {
+        loading: true
+      }
     ) {
       if (state.institute.institution_id) {
         if (config.loading) commit("SET_FETCHING_REQUESTS", true);
@@ -181,9 +195,14 @@ const Institutions = {
         }, 200);
       }
     },
-    async fetch_resources_of_institute(
-      { commit, state },
-      config = { loading: true, institution_id: null }
+    async fetch_resources_of_institute({
+        commit,
+        state
+      },
+      config = {
+        loading: true,
+        institution_id: null
+      }
     ) {
       if (config.institution_id || state.institute.institution_id) {
         if (config.loading) commit("SET_FETCHING_RESOURCES", true);
@@ -191,9 +210,9 @@ const Institutions = {
           .where(
             "institution_id",
             "==",
-            config.institution_id
-              ? config.institution_id
-              : state.institute.institution_id
+            config.institution_id ?
+            config.institution_id :
+            state.institute.institution_id
           )
           .get();
         let docs = [];
@@ -213,9 +232,14 @@ const Institutions = {
         }, 200);
       }
     },
-    async fetch_services_of_institute(
-      { commit, state },
-      config = { loading: true, institution_id: null }
+    async fetch_services_of_institute({
+        commit,
+        state
+      },
+      config = {
+        loading: true,
+        institution_id: null
+      }
     ) {
       if (config.institution_id || state.institute.institution_id) {
         if (config.loading) commit("SET_FETCHING_SERVICES", true);
@@ -223,9 +247,9 @@ const Institutions = {
           .where(
             "institution_id",
             "==",
-            config.institution_id
-              ? config.institution_id
-              : state.institute.institution_id
+            config.institution_id ?
+            config.institution_id :
+            state.institute.institution_id
           )
           .get();
         let docs = [];

@@ -22,7 +22,9 @@
                   @click="download_qr_code"
                   style="margin-left:32px;margin-right:32px;"
                 >
-                  <v-icon style="margin-right:8px;">{{ icons.mdiDownloadCircleOutline }}</v-icon>
+                  <v-icon style="margin-right:8px;">{{
+                    icons.mdiDownloadCircleOutline
+                  }}</v-icon>
                   Download
                 </v-btn>
               </div>

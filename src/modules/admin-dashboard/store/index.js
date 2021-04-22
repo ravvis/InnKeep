@@ -34,7 +34,7 @@ const AdminDashboard = {
       Vue.set(state, "fetching_institutions_error", payload);
     },
     SET_ACTIVE_INSTITUTION_DASHBOARD(state, payload) {
-      console.log({ payload })
+      console.log({ payload });
       Vue.set(state, "active_institution_dashboard", payload);
     },
     RESET_ACTIVE_INSTITUTION_DASHBOARD(state) {

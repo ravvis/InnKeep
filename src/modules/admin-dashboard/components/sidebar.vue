@@ -8,7 +8,6 @@
             v-if="fetching_institutions"
             indeterminate
             color="green"
-            
           ></v-progress-linear>
           <v-list-item-group
             v-else

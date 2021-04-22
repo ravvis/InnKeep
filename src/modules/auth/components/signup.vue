@@ -11,19 +11,19 @@
             <v-card-text>
               <v-form>
                 <v-text-field
-                    v-model="name"
-                    prepend-icon="mdi-account"
-                    name="name"
-                    label="Name"
-                    type="text"
-                  />
-                  <v-text-field
-                    v-model="company"
-                    prepend-icon="mdi-home"
-                    name="company"
-                    label="Company Name"
-                    type="text"
-                  />
+                  v-model="name"
+                  prepend-icon="mdi-account"
+                  name="name"
+                  label="Name"
+                  type="text"
+                />
+                <v-text-field
+                  v-model="company"
+                  prepend-icon="mdi-home"
+                  name="company"
+                  label="Company Name"
+                  type="text"
+                />
                 <v-text-field
                   ref="username"
                   v-model="email"
@@ -49,7 +49,7 @@
                 />
               </v-form>
             </v-card-text>
-           
+
             <v-layout column align-center>
               <div class="text-xs-center">
                 <v-btn
@@ -65,8 +65,8 @@
               <v-spacer />
               <v-divider class="mt-5" />
               <p>
-               Got an account?
-                    <router-link :to="{ name: 'signin' }">Login here</router-link>
+                Got an account?
+                <router-link :to="{ name: 'signin' }">Login here</router-link>
               </p>
             </v-layout>
           </v-card>
@@ -76,8 +76,7 @@
   </v-main>
 </template>
 
-
- <script>
+<script>
 import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
@@ -126,5 +125,4 @@ export default {
     }
   }
 };
-
- </script>
+</script>

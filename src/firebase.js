@@ -20,7 +20,6 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-
 // collection references
 const roomsCollection = db.collection("rooms");
 const usersCollection = db.collection("users");

@@ -4,7 +4,11 @@
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
       <v-toolbar-title>
-        <v-img src="@/assets/images/logo_gold.svg" width="10px" height="10px"></v-img>
+        <v-img
+          src="@/assets/images/logo_gold.svg"
+          width="10px"
+          height="10px"
+        ></v-img>
         InnKeep
       </v-toolbar-title>
 
@@ -26,7 +30,11 @@
     </v-app-bar>
     <v-navigation-drawer app floating v-if="is_authenticated" color="secondary">
       <v-card-title>
-        <img src="@/assets/images/logo_gold.svg" width="40px" style="margin-right:8px;"/>
+        <img
+          src="@/assets/images/logo_gold.svg"
+          width="40px"
+          style="margin-right:8px;"
+        />
         InnKeep
       </v-card-title>
       <sidebar></sidebar>
@@ -63,7 +71,7 @@ export default {
         return this.$store.state.theme.dark;
       },
       set(value) {
-        console.log({ value })
+        console.log({ value });
         this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
         return this.$store.commit("SET_DARK_THEME", value);
       }
