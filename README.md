@@ -9,12 +9,12 @@ npm install
 
 ### Compiles and hot-reloads for development
 
-## Server
+#### Server
 ```
 npm run dev
 ```
 
-## Client
+#### Client
 ```
 npm run build-dev --watch
 ```
