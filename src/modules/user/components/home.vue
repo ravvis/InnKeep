@@ -122,7 +122,7 @@ export default {
     submit() {
       // console.log(this.type);
       this.loading = true;
-      console.log({ p: requestsCollection.add() });
+      // console.log({ p: requestsCollection.add() });
       requestsCollection
         .add({
           name: this.name,
