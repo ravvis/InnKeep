@@ -2,12 +2,21 @@
 
 ## Project setup
 ```
+git clone git@github.com:singh-ravi-siso/InnKeep.git
+cd InnKeep
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+
+## Server
 ```
-npm run serve
+npm run dev
+```
+
+## Client
+```
+npm run build-dev --watch
 ```
 
 ### Compiles and minifies for production
